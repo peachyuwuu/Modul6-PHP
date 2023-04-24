@@ -18,6 +18,7 @@ $title = "En webbsida med PHP";
 <body>
 
     <h1><?php echo "Hello world"; ?></h1>
+    <a href="learn">Lär dig PHP</a>
     
 </body>
 </html>
