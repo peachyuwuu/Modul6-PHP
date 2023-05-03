@@ -1,4 +1,4 @@
 <hr>
 <footer>
-    En sidfot
+    <?= copyright() ?>
 </footer>

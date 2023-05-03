@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 $title = "Funktioner";
 
+include "_includes/global-functions.php";
+
 ?>
 <!DOCTYPE html>
 <html lang="en">

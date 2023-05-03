@@ -2,6 +2,8 @@
 
 $title = "Strängar - strings";
 
+include "_includes/global-functions.php";
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
