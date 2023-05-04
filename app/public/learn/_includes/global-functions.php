@@ -13,6 +13,11 @@ function print_r2($arr)
     echo "</pre>";
 }
 
+/**
+ * copyright
+ *
+ * @return void
+ */
 function copyright()
 {
     $year = date("Y");
