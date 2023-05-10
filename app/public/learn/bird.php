@@ -21,13 +21,17 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
 
     $bird_name = trim($_POST['bird_name']);
 
-    // Spara till databasen
-    $sql = "INSERT INTO bird (bird_name) VALUES ('$bird_name')";
+    // Kontrollera att minst två tecken finns i fältet för bird_name
+    if (strlen($bird_name) >= 2) {
 
-    print_r2($sql);
+        // Spara till databasen
+        $sql = "INSERT INTO bird (bird_name) VALUES ('$bird_name')";
 
-    // Använd databaskopplingen för att spara till tabellen i databasen
-    $result = $pdo->exec($sql);
+        print_r2($sql);
+
+        // Använd databaskopplingen för att spara till tabellen i databasen
+        $result = $pdo->exec($sql);
+    }
 }
 
 // Visa eventuella fåglar som finns i tabellen
@@ -65,7 +69,7 @@ $rows = $result->fetchAll();
 
         <p>
             <label for="bird_name">Fågel:</label>
-            <input type="text" name="bird_name" id="bird_name">
+            <input type="text" name="bird_name" id="bird_name" required minlength="2" maxlength="25">
         </p>
         <p>
             <input type="submit" value="Spara">
@@ -79,8 +83,12 @@ $rows = $result->fetchAll();
         <?php
 
         foreach ($rows as $row) {
+            $id = $row['id'];
             echo "<div>";
+            // echo "<a href=\"bird-edit.php?id=$id\">";
+            echo '<a href="bird-edit.php?id='. $row['id'] .'">';
             echo $row['bird_name'];
+            echo "</a>";
             echo "</div>";
         }
 
