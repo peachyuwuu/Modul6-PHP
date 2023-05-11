@@ -210,7 +210,85 @@
 
     ?>
 
+    <h3>Uppgift 1.</h3>
 
+    <?php
+
+    for ($i = 1; $i <= 10; $i++) {
+        echo "$i <br>";
+    }
+
+    ?>
+
+    <h3>Uppgift 2.</h3>
+
+    <?php
+
+    // $a = 0;
+    // while ($a <= 20) {
+    //     if ($a % 2 === 0) {
+    //         echo $a . "<br>";
+    //     }
+    //     $a++;
+    // }
+
+    $a = 0;
+    while ($a <= 20) {
+        echo $a . "<br>";
+        $a += 2;
+    }
+
+    ?>
+
+    <h3>Uppgift 3.</h3>
+
+    <?php
+
+    $x = 0;
+
+    do {
+        $x = rand(0, 10);
+        echo $x;
+    } while ($x != 5);
+
+    ?>
+
+    <h3>Uppgift 4.</h3>
+
+    <?php
+
+    $person = ["name" => "Bob", "age" => 25, "hobby" => "cooking", "hasDrivingLicence" => true];
+
+    foreach ($person as $key => $value) {
+        echo "$key => $value <br>";
+    }
+
+    ?>
+
+    <h3>Uppgift 5.</h3>
+
+    <?php
+
+    echo "<table>";
+
+    for ($i = 1; $i <= 10; $i++) {
+        echo "<tr>";
+        for ($k = 1; $k <= 10; $k++) {
+            echo "<td> " . $i * $k . "</td>";
+        }
+    }
+
+    echo "</table>";
+
+    ?>
+
+    <h3>Uppgift 6.</h3>
+
+    <?php
+
+    
+
+    ?>
 </body>
 
 </html>
