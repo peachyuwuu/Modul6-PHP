@@ -2,9 +2,14 @@
 
 declare(strict_types=1);
 
+session_start();
+
 include "_includes/global-functions.php";
 
 include "_includes/database-connection.php";
+
+// Setup table bird
+setup_bird($pdo);
 
 $title = "Fågelskådning";
 
@@ -65,19 +70,37 @@ $rows = $result->fetchAll();
 
     <h1><?= $title ?></h1>
 
-    <form action="<?= $_SERVER['PHP_SELF'] ?>" method="post">
+    <!-- Om användaren inte är inloggad ska inte formuläret visas -->
 
-        <p>
-            <label for="bird_name">Fågel:</label>
-            <input type="text" name="bird_name" id="bird_name" required minlength="2" maxlength="25">
-        </p>
-        <p>
-            <input type="submit" value="Spara">
-            <input type="reset" value="Nollställ">
-        </p>
+    <?php
 
-    </form>
+    if (isset($_SESSION['user_id'])) {
 
+
+
+    ?>
+
+        <form action="<?= $_SERVER['PHP_SELF'] ?>" method="post">
+
+            <p>
+                <label for="bird_name">Fågel:</label>
+                <input type="text" name="bird_name" id="bird_name" required minlength="2" maxlength="25">
+
+                <!-- För att koppla en användare till tabellen används ett dolt fält med användarens id -->
+                <input type="hidden" name="user_id" value="<?= $_SESSION['user_id'] ?>">
+            </p>
+            <p>
+                <input type="submit" value="Spara">
+                <input type="reset" value="Nollställ">
+            </p>
+
+        </form>
+
+    <?php
+
+    }
+
+    ?>
 
     <section>
         <?php
@@ -86,9 +109,15 @@ $rows = $result->fetchAll();
             $id = $row['id'];
             echo "<div>";
             // echo "<a href=\"bird-edit.php?id=$id\">";
-            echo '<a href="bird-edit.php?id='. $row['id'] .'">';
+            if (isset($_SESSION['user_id'])) {
+                echo '<a href="bird-edit.php?id=' . $row['id'] . '">';
+            }
+
             echo $row['bird_name'];
-            echo "</a>";
+            if (isset($_SESSION['user_id'])) {
+                echo "</a>";
+            }
+
             echo "</div>";
         }
 

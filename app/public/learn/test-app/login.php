@@ -1,5 +1,12 @@
 <?php
+
+// Se till att sessioner används på sidan
+session_start();
+
 require_once "../_includes/database-connection.php";
+
+setup_user($pdo);
+
 ?>
 
 <html lang="en">
@@ -12,6 +19,13 @@ require_once "../_includes/database-connection.php";
 </head>
 
 <body>
+
+    <?php
+
+    require_once "../_includes/header.php";
+
+    ?>
+
     <h1>Login</h1>
     <form action="" method="post">
         <label for="username">Username: </label>
@@ -33,7 +47,7 @@ require_once "../_includes/database-connection.php";
         // echo $form_username . ' - ' . $form_password - ' should be sent to DB.';
 
         // Send to database
-        $sql_statement = "SELECT * FROM `$database`.`User` WHERE `username` = '$form_username'";
+        $sql_statement = "SELECT * FROM `user` WHERE `username` = '$form_username'";
 
         try {
             $result = $pdo->query($sql_statement);
@@ -43,18 +57,24 @@ require_once "../_includes/database-connection.php";
             $user = $result->fetch();
             // No user found with these credentials
             if (!$user) {
-                header("location: login.php");
+                header("location: ../login.php");
                 exit();
             }
 
             $is_correct_password = password_verify($form_password, $user['password']);
             if (!$is_correct_password) {
-                header("location: login.php");
+                header("location: ../login.php");
                 exit();
             }
 
-            // If OK redirect to dashboard page
-            header("location: dashboard.php");
+            // När rätt lösenord är angivet är användaren känd
+            // Skapa sessionsvariabler som kan användas
+            $_SESSION['username'] = $user['username'];
+            $_SESSION['user_id'] = $user['id'];
+
+
+            // If OK redirect to bird page
+            header("location: ../bird.php");
         } catch (PDOException $err) {
             echo "There was a problem " . $err->getMessage();
         }

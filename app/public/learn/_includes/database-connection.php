@@ -18,4 +18,29 @@ try {
     echo "Connection failed: " . $e->getMessage();
 }
 
+
+// Funktion för att skapa tabellen bird
+function setup_bird($pdo)
+{
+    $sql = "CREATE TABLE IF NOT EXISTS `bird` (
+        `id` int(11) NOT NULL AUTO_INCREMENT,
+        `bird_name` varchar(25) NOT NULL,
+        PRIMARY KEY (`id`)
+       ) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci";
+
+    $pdo->exec($sql);
+
+    // Funktion för att skapa tabellen user
+}
+function setup_user($pdo)
+{
+    $sql = "CREATE TABLE IF NOT EXISTS `user` (
+        `user_id` int(11) NOT NULL AUTO_INCREMENT,
+        `username` varchar(20) NOT NULL,
+        `password` varchar(255) NOT NULL,
+        PRIMARY KEY (`user_id`)
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci";
+
+    $pdo->exec($sql);
+}
 ?>

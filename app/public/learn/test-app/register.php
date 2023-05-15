@@ -1,5 +1,10 @@
 <?php
+
+session_start();
+
 require_once "../_includes/database-connection.php";
+
+setup_user($pdo);
 ?>
 
 <html lang="en">
@@ -30,11 +35,10 @@ require_once "../_includes/database-connection.php";
         $form_username = $_POST['username'];
         $form_hashed_password = password_hash($_POST['password'], PASSWORD_DEFAULT);
 
-        echo $form_username . ' - ' . $form_password - ' should be sent to DB.';
+        // echo $form_username . ' - ' . $form_password - ' should be sent to DB.';
 
         // Send to database
-        $sql_statement = "INSERT INTO `$database`.`User` (`username`, `password`) VALUES ('$form_username', '$form_hashed_password')";
-
+        $sql_statement = "INSERT INTO `user` (`username`, `password`) VALUES ('$form_username', '$form_hashed_password')";
         try {
             $result = $pdo->query($sql_statement);
 
